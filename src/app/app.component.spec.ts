@@ -1,33 +1,28 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, async } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
+import { EnvironmentService } from '@app/environment.service';
+import { IEnvironment } from '@environments/ienvironment';
 
 describe('AppComponent', () => {
-  beforeEach(() =>
+  const mockEnvironment: IEnvironment = {
+    apiHost: '',
+    apiUrl: 'test test test',
+    enableDebugTools: false,
+    logLevel: 'debug',
+    production: false,
+  };
+
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       declarations: [AppComponent],
-    })
-  );
+      providers: [{ provide: EnvironmentService, useValue: mockEnvironment }],
+    }).compileComponents();
+  }));
 
-  it('should create the app', () => {
+  it('should be using the configured environment settings', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
 
-  it(`should have as title 'blog'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('blog');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'blog app is running!'
-    );
-  });
+    expect(fixture.componentInstance.apiUrl).toBe(mockEnvironment.apiUrl);
+  }));
 });

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EnvironmentService } from '@app/environment.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  apiUrl = '';
+
   title = 'blog';
+
+  constructor(environment: EnvironmentService) {
+    this.apiUrl = environment.apiUrl;
+  }
 }
