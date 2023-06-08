@@ -1,3 +1,6 @@
 <ng-container *ngFor="let blog of blogs | async">
   <app-blog-overview [blog]="blog"></app-blog-overview>
 </ng-container>
+<mat-card *ngIf="blogs | async">
+  <mat-card-content>No result found with this keyword...</mat-card-content>
+</mat-card>

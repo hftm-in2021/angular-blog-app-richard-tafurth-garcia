@@ -4,10 +4,16 @@ import { BlogOverviewPageComponent } from '@features/blog-overview-page/blog-ove
 import { BlogOverviewComponent } from '@app/core/components/blog-overview/blog-overview.component';
 import { BlogService } from './services/blog.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [BlogOverviewPageComponent],
-  imports: [CommonModule, BlogOverviewComponent, HttpClientModule],
+  imports: [
+    CommonModule,
+    BlogOverviewComponent,
+    HttpClientModule,
+    MatCardModule,
+  ],
   exports: [BlogOverviewPageComponent],
   providers: [BlogService],
 })

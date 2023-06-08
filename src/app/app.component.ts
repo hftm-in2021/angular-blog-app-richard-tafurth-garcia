@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { EnvironmentService } from '@app/environment.service';
 
-import { FormBuilder } from '@angular/forms';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,5 +13,9 @@ export class AppComponent {
 
   constructor(environment: EnvironmentService) {
     this.apiUrl = environment.apiUrl;
+  }
+
+  search(event: any): void {
+    this.searchInput = event.target.value;
   }
 }

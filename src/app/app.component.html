@@ -5,7 +5,7 @@
     <input
       matInput
       placeholder="Search blog entries..."
-      [(ngModel)]="searchInput"
+      (keyup.enter)="search($event)"
     />
   </mat-form-field>
 </mat-toolbar>
