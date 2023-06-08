@@ -1,0 +1,15 @@
+<mat-card class="blog-entry-card">
+  <mat-card-header>
+    <img mat-card-avatar #UserHeaderImage alt="" />
+    <mat-card-title>{{ blog?.author }}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="" alt="" />
+  <mat-card-content>
+    <p>
+      {{ blog?.contentPreview }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-icon matBadge="15" matBadgeColor="warn">home</mat-icon>
+  </mat-card-actions>
+</mat-card>
