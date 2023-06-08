@@ -3,11 +3,13 @@
   gap: 3%;
   margin-left: 15%;
   margin-right: 15%;
+  margin-top: 1%;
 }
 
 @media only screen and (max-width: 768px) {
   :host {
     margin-left: 5%;
     margin-right: 5%;
+    margin-top: 5%;
   }
 }

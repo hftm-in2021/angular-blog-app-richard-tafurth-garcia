@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+
 import { Blog } from '@app/models/blog';
 
 @Component({
@@ -21,17 +23,23 @@ import { Blog } from '@app/models/blog';
     MatBadgeModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
   ],
   styleUrls: ['./blog-overview.component.scss'],
   standalone: true,
 })
 export class BlogOverviewComponent implements AfterViewInit {
-  @Input() blog?: Blog;
+  @Input({ required: true }) blog!: Blog;
   @ViewChild('UserHeaderImage', { static: true })
-  headerImage?: ElementRef<HTMLImageElement>;
+  headerImage!: ElementRef<HTMLImageElement>;
 
   ngAfterViewInit(): void {
-    if (this.headerImage)
-      this.headerImage.nativeElement.src = `https://api.dicebear.com/6.x/adventurer/svg?seed=${this.blog?.author}`;
+    this.headerImage.nativeElement.src = `https://api.dicebear.com/6.x/adventurer/svg?seed=${this.blog?.author}`;
+  }
+
+  toggleFavorite(): void {
+    this.blog.likedByMe = !this.blog.likedByMe;
+    if (this.blog.likedByMe) this.blog.likes += 1;
+    else this.blog.likes -= 1;
   }
 }

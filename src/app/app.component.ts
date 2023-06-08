@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { EnvironmentService } from '@app/environment.service';
 
+import { FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +10,8 @@ import { EnvironmentService } from '@app/environment.service';
 })
 export class AppComponent {
   apiUrl = '';
-
   title = 'blog';
+  searchInput = '';
 
   constructor(environment: EnvironmentService) {
     this.apiUrl = environment.apiUrl;

@@ -1,1 +1,12 @@
-<app-blog-overview-page> </app-blog-overview-page>
+<mat-toolbar>
+  <span>My Application</span>
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <input
+      matInput
+      placeholder="Search blog entries..."
+      [(ngModel)]="searchInput"
+    />
+  </mat-form-field>
+</mat-toolbar>
+<app-blog-overview-page [keyword]="searchInput"> </app-blog-overview-page>

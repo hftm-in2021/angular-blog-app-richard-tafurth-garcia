@@ -1,28 +1,36 @@
 <mat-card class="blog-entry-card">
   <mat-card-header>
     <img mat-card-avatar #UserHeaderImage alt="" />
-    <mat-card-title>{{ blog?.author }}</mat-card-title>
+    <mat-card-title>{{ blog.author }}</mat-card-title>
+    <mat-card-subtitle>{{ blog.title }}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="" alt="" />
   <mat-card-content>
     <p>
-      {{ blog?.contentPreview }}
+      {{ blog.contentPreview }}
     </p>
   </mat-card-content>
   <mat-card-actions>
     <button
+      (click)="toggleFavorite()"
       mat-icon-button
       color="primary"
       aria-label="Example icon button with a home icon"
     >
-      <mat-icon [matBadge]="blog?.likes">favorite</mat-icon>
+      <mat-icon [matBadge]="blog.likes" [matBadgeHidden]="blog.likes === 0">
+        {{ blog.likedByMe ? "favorite" : "favorite_border" }}
+      </mat-icon>
     </button>
     <button
       mat-icon-button
       color="primary"
       aria-label="Example icon button with a home icon"
     >
-      <mat-icon [matBadge]="blog?.comments">comment</mat-icon>
+      <mat-icon
+        [matBadge]="blog.comments"
+        [matBadgeHidden]="blog.comments === 0"
+        >comment</mat-icon
+      >
     </button>
   </mat-card-actions>
 </mat-card>

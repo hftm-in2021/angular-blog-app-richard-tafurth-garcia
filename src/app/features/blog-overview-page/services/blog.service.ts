@@ -13,4 +13,13 @@ export class BlogService {
   getEntries(): Observable<Blog[]> {
     return this.http.get<Blog[]>(`${environment.apiUrl}/entries`);
   }
+
+  searchEntries(keyword: string): Observable<Blog[]> {
+    console.log(keyword);
+    return this.http.get<Blog[]>(`${environment.apiUrl}/entries`, {
+      params: {
+        searchstring: keyword,
+      },
+    });
+  }
 }
