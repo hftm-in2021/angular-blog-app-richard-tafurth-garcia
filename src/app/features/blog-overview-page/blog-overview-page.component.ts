@@ -17,17 +17,17 @@ import { Observable } from 'rxjs';
 export class BlogOverviewPageComponent implements AfterViewInit, OnChanges {
   @Input({ required: true }) keyword!: string;
 
-  public blogs?: Observable<Blog[]>;
+  public blogs$?: Observable<Blog[]>;
 
   constructor(private blogService: BlogService) {}
 
   ngAfterViewInit(): void {
-    this.blogs = this.blogService.getEntries();
+    this.blogs$ = this.blogService.getEntries();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['keyword'])
-      this.blogs = this.blogService.searchEntries(
+      this.blogs$ = this.blogService.searchEntries(
         changes['keyword'].currentValue
       );
   }

@@ -1,6 +1,11 @@
-<ng-container *ngFor="let blog of blogs | async">
-  <app-blog-overview [blog]="blog"></app-blog-overview>
+<ng-container *ngIf="blogs$ | async; let blogs">
+  <ng-container *ngFor="let blog of blogs">
+    <app-blog-overview [blog]="blog"></app-blog-overview>
+  </ng-container>
+  <mat-card *ngIf="blogs.length === 0">
+    <mat-card-header>
+      <mat-card-title>Error 404</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>No result found with this keyword...</mat-card-content>
+  </mat-card>
 </ng-container>
-<mat-card *ngIf="blogs | async">
-  <mat-card-content>No result found with this keyword...</mat-card-content>
-</mat-card>
