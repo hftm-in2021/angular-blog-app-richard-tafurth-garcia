@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { Blog } from '@app/models/blog';
+import { ArrayBlog, ArrayBlogSchema, BlogSchema } from '@app/schemas/blog';
 
 @Injectable({
   providedIn: 'root',
@@ -10,16 +10,20 @@ import { Blog } from '@app/models/blog';
 export class BlogService {
   constructor(private http: HttpClient) {}
 
-  getEntries(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${environment.apiUrl}/entries`);
+  getEntries(): Observable<ArrayBlog> {
+    return this.http
+      .get<ArrayBlog>(`${environment.apiUrl}/entries`)
+      .pipe(map((response) => ArrayBlogSchema.parse(response)));
   }
 
-  searchEntries(keyword: string): Observable<Blog[]> {
+  searchEntries(keyword: string): Observable<ArrayBlog> {
     console.log(keyword);
-    return this.http.get<Blog[]>(`${environment.apiUrl}/entries`, {
-      params: {
-        searchstring: keyword,
-      },
-    });
+    return this.http
+      .get<ArrayBlog>(`${environment.apiUrl}/entries`, {
+        params: {
+          searchstring: keyword,
+        },
+      })
+      .pipe(map((response) => ArrayBlogSchema.parse(response)));
   }
 }

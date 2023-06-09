@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { BlogService } from './services/blog.service';
-import { Blog } from '@app/models/blog';
+import { ArrayBlog } from '@app/schemas/blog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 export class BlogOverviewPageComponent implements AfterViewInit, OnChanges {
   @Input({ required: true }) keyword!: string;
 
-  public blogs$?: Observable<Blog[]>;
+  public blogs$?: Observable<ArrayBlog>;
 
   constructor(private blogService: BlogService) {}
 
