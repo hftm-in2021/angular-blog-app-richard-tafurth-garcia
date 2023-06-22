@@ -12,8 +12,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
-import { BlogOverview } from '@app/schemas/blog-overview';
+import { BlogOverViewSchema, BlogOverview } from '@app/schemas/blog-overview';
 import { BlogDetails } from '@app/schemas/blog-details';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog-item',
@@ -34,6 +35,8 @@ export class BlogItemComponent implements AfterViewInit {
   @ViewChild('UserHeaderImage', { static: true })
   headerImage!: ElementRef<HTMLImageElement>;
 
+  constructor(private router: Router) {}
+
   ngAfterViewInit(): void {
     this.headerImage.nativeElement.src = `https://api.dicebear.com/6.x/adventurer/svg?seed=${this.blog?.author}`;
   }
@@ -44,8 +47,12 @@ export class BlogItemComponent implements AfterViewInit {
     else this.blog.likes -= 1;
   }
 
+  isDetailed(): boolean {
+    return (this.blog as BlogOverview).contentPreview === undefined;
+  }
+
   getContent(): string {
-    if ((this.blog as BlogOverview).contentPreview !== undefined) {
+    if (this.isDetailed()) {
       return (this.blog as BlogOverview).contentPreview;
     } else {
       return (this.blog as BlogDetails).content;
@@ -53,10 +60,16 @@ export class BlogItemComponent implements AfterViewInit {
   }
 
   countComments(): number {
-    if ((this.blog as BlogOverview).contentPreview !== undefined) {
+    if (this.isDetailed()) {
       return (this.blog as BlogOverview).comments;
     } else {
       return (this.blog as BlogDetails).comments.length;
+    }
+  }
+
+  navigate(): void {
+    if (!this.isDetailed()) {
+      this.router.navigate(['/', 'blogs', (this.blog as BlogOverview).id]);
     }
   }
 }

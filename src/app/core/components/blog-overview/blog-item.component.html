@@ -1,4 +1,8 @@
-<mat-card class="blog-entry-card">
+<mat-card
+  class="blog-entry-card"
+  (click)="navigate()"
+  [class.clickable]="!isDetailed()"
+>
   <mat-card-header>
     <img mat-card-avatar #UserHeaderImage alt="" />
     <mat-card-title>{{ blog.author }}</mat-card-title>
