@@ -5,9 +5,11 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { BlogService } from './services/blog.service';
-import { ArrayBlog } from '@app/schemas/blog';
+/*import { BlogService } from './services/blog.service';*/
+/*import { ArrayBlogOverview } from '@schemas/ArrayBlogOverview';*/
 import { Observable } from 'rxjs';
+import { ArrayBlogOverview } from '@app/schemas/blog-overview';
+import { BlogService } from '@app/services/blog.service';
 
 @Component({
   selector: 'app-blog-overview-page',
@@ -17,7 +19,7 @@ import { Observable } from 'rxjs';
 export class BlogOverviewPageComponent implements AfterViewInit, OnChanges {
   @Input({ required: true }) keyword!: string;
 
-  public blogs$?: Observable<ArrayBlog>;
+  public blogs$?: Observable<ArrayBlogOverview>;
 
   constructor(private blogService: BlogService) {}
 

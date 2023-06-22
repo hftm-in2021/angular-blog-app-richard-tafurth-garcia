@@ -11,19 +11,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { BlogDetailsPageModule } from './features/blog-details-page/blog-details-page.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BlogOverviewPageModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     FormsModule,
+    BlogDetailsPageModule,
+    BlogOverviewPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

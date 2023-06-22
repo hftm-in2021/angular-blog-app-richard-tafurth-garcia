@@ -1,6 +1,6 @@
 <ng-container *ngIf="blogs$ | async; let blogs">
   <ng-container *ngFor="let blog of blogs">
-    <app-blog-overview [blog]="blog"></app-blog-overview>
+    <app-blog-item [blog]="blog"></app-blog-item>
   </ng-container>
   <mat-card *ngIf="blogs.length === 0">
     <mat-card-header>

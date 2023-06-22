@@ -12,11 +12,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
-import { Blog, BlogSchema } from '@app/schemas/blog';
+import { BlogOverViewSchema, BlogOverview } from '@app/schemas/blog-overview';
+import { BlogDetails } from '@app/schemas/blog-details';
 
 @Component({
-  selector: 'app-blog-overview',
-  templateUrl: './blog-overview.component.html',
+  selector: 'app-blog-item',
+  templateUrl: './blog-item.component.html',
   imports: [
     MatBadgeModule,
     MatCardModule,
@@ -25,11 +26,11 @@ import { Blog, BlogSchema } from '@app/schemas/blog';
     MatIconModule,
     FormsModule,
   ],
-  styleUrls: ['./blog-overview.component.scss'],
+  styleUrls: ['./blog-item.component.scss'],
   standalone: true,
 })
-export class BlogOverviewComponent implements AfterViewInit {
-  @Input({ required: true }) blog!: Blog;
+export class BlogItemComponent implements AfterViewInit {
+  @Input({ required: true }) blog!: BlogOverview | BlogDetails;
   @ViewChild('UserHeaderImage', { static: true })
   headerImage!: ElementRef<HTMLImageElement>;
 
@@ -41,5 +42,21 @@ export class BlogOverviewComponent implements AfterViewInit {
     this.blog.likedByMe = !this.blog.likedByMe;
     if (this.blog.likedByMe) this.blog.likes += 1;
     else this.blog.likes -= 1;
+  }
+
+  getContent(): string {
+    if ((this.blog as BlogOverview).contentPreview !== undefined) {
+      return (this.blog as BlogOverview).contentPreview;
+    } else {
+      return (this.blog as BlogDetails).content;
+    }
+  }
+
+  countComments(): number {
+    if ((this.blog as BlogOverview).contentPreview !== undefined) {
+      return (this.blog as BlogOverview).comments;
+    } else {
+      return (this.blog as BlogDetails).comments.length;
+    }
   }
 }
