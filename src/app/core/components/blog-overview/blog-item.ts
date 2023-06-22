@@ -60,7 +60,7 @@ export class BlogItemComponent implements AfterViewInit {
   }
 
   countComments(): number {
-    if (this.isDetailed()) {
+    if (!this.isDetailed()) {
       return (this.blog as BlogOverview).comments;
     } else {
       return (this.blog as BlogDetails).comments.length;
