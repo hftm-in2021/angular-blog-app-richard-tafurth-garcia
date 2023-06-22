@@ -1,3 +1,9 @@
 <ng-container *ngIf="blog$ | async; let blog">
   <app-blog-item [blog]="blog"></app-blog-item>
+  <ng-container *ngFor="let comment of blog.comments">
+    <app-comment-item [comment]="comment"></app-comment-item>
+  </ng-container>
+  <mat-card *ngIf="blog.comments.length === 0">
+    <mat-card-content>Be the first one to comment!</mat-card-content>
+  </mat-card>
 </ng-container>

@@ -28,5 +28,11 @@ export class BlogDetailsPageComponent implements AfterViewInit {
     const blogId = Number(this.route.snapshot.paramMap.get('id')) || null;
 
     if (blogId != null) this.blog$ = this.blogService.getEntry(blogId);
+
+    console.log(
+      this.blog$.forEach((next) => {
+        console.log(next.comments);
+      })
+    );
   }
 }

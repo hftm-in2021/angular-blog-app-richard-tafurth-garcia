@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const CommentSchema = z.object({
   content: z.string(),
-  date: z.date(),
+  date: z.string(),
   author: z.string(),
 });
 

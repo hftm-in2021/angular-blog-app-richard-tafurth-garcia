@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { BlogService } from '@app/services/blog.service';
 import { Routes, RouterModule } from '@angular/router';
+import { CommentItemComponent } from '@app/core/comment-item/comment-item';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     MatCardModule,
     BlogItemComponent,
     RouterModule.forChild(routes),
+    CommentItemComponent,
   ],
   exports: [BlogDetailsPageComponent, RouterModule],
   providers: [BlogService],

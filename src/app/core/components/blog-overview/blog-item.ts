@@ -12,7 +12,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 
-import { BlogOverViewSchema, BlogOverview } from '@app/schemas/blog-overview';
+import { BlogOverview } from '@app/schemas/blog-overview';
 import { BlogDetails } from '@app/schemas/blog-details';
 
 @Component({
