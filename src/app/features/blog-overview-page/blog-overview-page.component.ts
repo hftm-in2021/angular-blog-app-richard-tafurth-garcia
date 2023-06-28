@@ -1,13 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 /*import { BlogService } from './services/blog.service';*/
 /*import { ArrayBlogOverview } from '@schemas/ArrayBlogOverview';*/
-import { Observable } from 'rxjs';
 import { ArrayBlogOverview } from '@app/schemas/blog-overview';
 import { BlogService } from '@app/services/blog.service';
 
@@ -16,21 +9,20 @@ import { BlogService } from '@app/services/blog.service';
   templateUrl: './blog-overview-page.component.html',
   styleUrls: ['./blog-overview-page.component.scss'],
 })
-export class BlogOverviewPageComponent implements AfterViewInit, OnChanges {
+export class BlogOverviewPageComponent implements AfterViewInit {
   @Input({ required: true }) keyword!: string;
 
-  public blogs$?: Observable<ArrayBlogOverview>;
+  public isLoading = true;
+  public error?: Error | null = null;
+  public blogs!: ArrayBlogOverview;
 
   constructor(private blogService: BlogService) {}
 
   ngAfterViewInit(): void {
-    this.blogs$ = this.blogService.getEntries();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['keyword'])
-      this.blogs$ = this.blogService.searchEntries(
-        changes['keyword'].currentValue
-      );
+    this.blogService.getEntries().subscribe({
+      next: (blogs: ArrayBlogOverview) => (this.blogs = blogs),
+      error: (error: Error) => (this.error = error),
+      complete: () => (this.isLoading = false),
+    });
   }
 }

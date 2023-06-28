@@ -12,6 +12,8 @@ import { BlogDetails, BlogDetailSchema } from '@app/schemas/blog-details';
   providedIn: 'root',
 })
 export class BlogService {
+  private cachedBlogs$?: Observable<BlogDetails[]>;
+
   constructor(private http: HttpClient) {}
 
   getEntries(): Observable<ArrayBlogOverview> {

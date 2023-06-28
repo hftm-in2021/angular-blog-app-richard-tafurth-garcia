@@ -1,4 +1,7 @@
-<ng-container *ngIf="blogs$ | async; let blogs">
+<ng-container *ngIf="isLoading; else blogContent">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-template #blogContent>
   <ng-container *ngFor="let blog of blogs">
     <app-blog-item [blog]="blog"></app-blog-item>
   </ng-container>
@@ -8,4 +11,10 @@
     </mat-card-header>
     <mat-card-content>No result found with this keyword...</mat-card-content>
   </mat-card>
-</ng-container>
+</ng-template>
+<mat-card *ngIf="error !== null">
+  <mat-card-header>
+    <mat-card-title>Error 500</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>An error occured: {{ this.error }}</mat-card-content>
+</mat-card>
