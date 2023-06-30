@@ -5,10 +5,8 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { BlogDetails } from '@app/services/blog-details';
-import { BlogService } from '@app/services/blog.service';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BlogStateService } from '@app/services/blog.state.service';
 
 @Component({
   selector: 'app-blog-details-page',
@@ -16,17 +14,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./blog-details-page.component.scss'],
 })
 export class BlogDetailsPageComponent implements AfterViewInit {
-  public blog$!: Observable<BlogDetails>;
-
   constructor(
-    private blogService: BlogService,
-    private route: ActivatedRoute,
-    private router: Router
+    public blogStateService: BlogStateService,
+    private route: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {
     const blogId = Number(this.route.snapshot.paramMap.get('id')) || null;
 
-    if (blogId != null) this.blog$ = this.blogService.getEntry(blogId);
+    if (blogId != null) this.blogStateService.getEntry(blogId);
   }
 }

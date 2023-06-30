@@ -3,9 +3,11 @@ import { Observable } from 'rxjs';
 import { ArrayBlogOverview } from './blog-overview';
 import { StateService } from './state.service';
 import { BlogService } from './blog.service';
+import { BlogDetails } from './blog-details';
 
 interface BlogState {
   blogs: ArrayBlogOverview;
+  selectedBlog: BlogDetails | null;
   isLoading: boolean;
   error: Error | null;
   isEmpty: boolean;
@@ -13,6 +15,7 @@ interface BlogState {
 
 const initialState: BlogState = {
   blogs: [],
+  selectedBlog: null,
   isLoading: true,
   error: null,
   isEmpty: true,
@@ -26,17 +29,32 @@ export class BlogStateService extends StateService<BlogState> {
   isLoading$: Observable<boolean> = this.select((state) => state.isLoading);
   error$: Observable<Error | null> = this.select((state) => state.error);
   isEmpty$: Observable<boolean> = this.select((state) => state.isEmpty);
+  selectedBlog$: Observable<BlogDetails | null> = this.select(
+    (state) => state.selectedBlog
+  );
 
   constructor(private blogService: BlogService) {
     super(initialState);
     this.getEntries();
   }
 
-  private getEntries(): void {
+  public getEntries(): void {
     this.setLoading(true);
     this.blogService.getEntries().subscribe({
       next: (blogs: ArrayBlogOverview) => {
         this.setState({ blogs });
+        this.setEmpty(false);
+      },
+      error: (error: Error) => this.setError(error),
+      complete: () => this.setLoading(false),
+    });
+  }
+
+  public getEntry(blogId: number): void {
+    this.setLoading(true);
+    this.blogService.getEntry(blogId).subscribe({
+      next: (blog: BlogDetails) => {
+        this.setSelectedBlog(blog);
         this.setEmpty(false);
       },
       error: (error: Error) => this.setError(error),
@@ -54,5 +72,9 @@ export class BlogStateService extends StateService<BlogState> {
 
   private setEmpty(empty: boolean): void {
     this.setState({ isEmpty: empty });
+  }
+
+  private setSelectedBlog(blog: BlogDetails): void {
+    this.setState({ selectedBlog: blog });
   }
 }

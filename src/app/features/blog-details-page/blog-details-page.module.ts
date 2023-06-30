@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { BlogService } from '@app/services/blog.service';
 import { Routes, RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommentItemComponent } from '@app/shared/comment-item/comment-item';
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
     BlogItemComponent,
     RouterModule.forChild(routes),
     CommentItemComponent,
+    MatProgressSpinnerModule,
   ],
   exports: [BlogDetailsPageComponent, RouterModule],
   providers: [BlogService],
