@@ -8,7 +8,7 @@ import { IEnvironment } from './ienvironment';
 
 const apiHost =
   'd-cap-blog-backend.whitepond-b96fee4b.westeurope.azurecontainerapps.io';
-const apiUrl = `http://${apiHost}/`;
+const apiUrl = `https://${apiHost}/`;
 
 export const environment: IEnvironment = {
   production: true,

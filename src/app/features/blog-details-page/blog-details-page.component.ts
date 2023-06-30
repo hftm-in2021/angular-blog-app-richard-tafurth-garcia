@@ -5,8 +5,8 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { BlogDetails } from '@app/schemas/blog-details';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { BlogDetails } from '@app/services/blog-details';
 import { BlogService } from '@app/services/blog.service';
 import { Observable } from 'rxjs';
 
