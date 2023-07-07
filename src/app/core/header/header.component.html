@@ -1,5 +1,13 @@
 <mat-toolbar>
-  <span [routerLink]="['/', 'blogs']" class="clickable">My Application</span>
+  <a
+    [routerLink]="['/', 'blogs']"
+    mat-icon-button
+    class="example-icon clickable"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>home</mat-icon>
+    <span>bleddit</span>
+  </a>
   <span class="spacer"></span>
 
   <button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
