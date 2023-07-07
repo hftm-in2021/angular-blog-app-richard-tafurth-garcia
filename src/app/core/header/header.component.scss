@@ -1,0 +1,18 @@
+.mat-toolbar-single-row {
+  padding-right: 0px;
+}
+
+mat-form-field {
+  margin-right: 15%;
+}
+
+@media only screen and (max-width: 768px) {
+  mat-form-field {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

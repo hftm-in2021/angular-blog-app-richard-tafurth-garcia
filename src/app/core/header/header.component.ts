@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,4 +13,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Output() searchTriggeredEmitter = new EventEmitter<string>();
+  @ViewChild('searchInput') input!: ElementRef<HTMLInputElement>;
+
+  searchBlogs(event: KeyboardEvent) {
+    if (event.code === 'Enter')
+      this.searchTriggeredEmitter.emit(this.input.nativeElement.value);
+  }
+}

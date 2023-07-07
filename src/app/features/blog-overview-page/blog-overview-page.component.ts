@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BlogStateService } from '@app/services/blog.state.service';
+import { BlogStateService } from '@app/core/services/blog.state.service';
 
 @Component({
   selector: 'app-blog-overview-page',

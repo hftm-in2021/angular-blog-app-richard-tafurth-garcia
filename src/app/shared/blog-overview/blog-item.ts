@@ -12,8 +12,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BlogDetails } from '@app/services/blog-details';
-import { BlogOverview } from '@app/services/blog-overview';
+import { BlogDetails } from '@app/core/services/blog-details';
+import { BlogOverview } from '@app/core/services/blog-overview';
 
 @Component({
   selector: 'app-blog-item',

@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogStateService } from '@app/services/blog.state.service';
+import { BlogStateService } from '@app/core/services/blog.state.service';
 
 @Component({
   selector: 'app-blog-details-page',

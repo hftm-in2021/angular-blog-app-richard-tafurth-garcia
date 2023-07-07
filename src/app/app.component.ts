@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { EnvironmentService } from '@app/environment.service';
+import { BlogDetailSchema } from './core/services/blog-details';
+import { BlogStateService } from './core/services/blog.state.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,18 @@ import { EnvironmentService } from '@app/environment.service';
 export class AppComponent {
   apiUrl = '';
   title = 'blog';
-  searchInput = '';
 
-  constructor(environment: EnvironmentService) {
+  blogStateService: BlogStateService;
+
+  constructor(
+    environment: EnvironmentService,
+    blogStateService: BlogStateService
+  ) {
     this.apiUrl = environment.apiUrl;
+    this.blogStateService = blogStateService;
   }
 
-  search(event: any): void {
-    this.searchInput = event.target.value;
+  searchBlogs(keywords: string): void {
+    this.blogStateService.searchEntries(keywords);
   }
 }

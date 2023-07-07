@@ -62,6 +62,18 @@ export class BlogStateService extends StateService<BlogState> {
     });
   }
 
+  public searchEntries(keywords: string): void {
+    this.setLoading(true);
+    this.blogService.searchEntries(keywords).subscribe({
+      next: (blogs: ArrayBlogOverview) => {
+        this.setState({ blogs });
+        this.setEmpty(false);
+      },
+      error: (error: Error) => this.setError(error),
+      complete: () => this.setLoading(false),
+    });
+  }
+
   private setLoading(loading: boolean): void {
     this.setState({ isLoading: loading });
   }
