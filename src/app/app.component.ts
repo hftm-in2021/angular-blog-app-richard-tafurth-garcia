@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EnvironmentService } from '@app/environment.service';
-import { BlogDetailSchema } from './core/services/blog-details';
-import { BlogStateService } from './core/services/blog.state.service';
+import { BlogStateService } from '@services/blog.state.service';
+import { AuthenticationStateService } from '@core/auth/authentication.state.service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,23 @@ import { BlogStateService } from './core/services/blog.state.service';
 export class AppComponent {
   apiUrl = '';
   title = 'blog';
-
-  blogStateService: BlogStateService;
+  authenticationStateService: AuthenticationStateService;
 
   constructor(
     environment: EnvironmentService,
-    blogStateService: BlogStateService
+    private blogStateService: BlogStateService,
+    authenticationStateService: AuthenticationStateService
   ) {
     this.apiUrl = environment.apiUrl;
-    this.blogStateService = blogStateService;
+    this.authenticationStateService = authenticationStateService;
   }
 
   searchBlogs(keywords: string): void {
     this.blogStateService.searchEntries(keywords);
+  }
+
+  manageAuthentication(mustLogin: boolean): void {
+    if (mustLogin) this.authenticationStateService.login();
+    else this.authenticationStateService.logout();
   }
 }

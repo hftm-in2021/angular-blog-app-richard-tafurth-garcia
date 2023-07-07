@@ -2,37 +2,11 @@
   <a
     [routerLink]="['/', 'blogs']"
     mat-icon-button
-    class="example-icon clickable"
     aria-label="Example icon-button with menu icon"
   >
     <mat-icon>home</mat-icon>
-    <span>bleddit</span>
   </a>
-  <span class="spacer"></span>
-
-  <button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
-  <mat-menu #aboveMenu="matMenu" yPosition="above">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="belowMenu">Below</button>
-  <mat-menu #belowMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="beforeMenu">Before</button>
-  <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="afterMenu">After</button>
-  <mat-menu #afterMenu="matMenu" xPosition="after">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
+  <mat-label>bleddit</mat-label>
 
   <span class="spacer"></span>
 
@@ -44,4 +18,28 @@
       #searchInput
     />
   </mat-form-field>
+
+  <ng-container *ngIf="isAuthenticated; else showLogin">
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ userData?.preferred_username }}
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+      <button (click)="logoff()" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #showLogin>
+    <button
+      (click)="login()"
+      mat-icon-button
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+    <mat-label>login</mat-label>
+  </ng-template>
 </mat-toolbar>

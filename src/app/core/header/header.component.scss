@@ -1,20 +1,12 @@
-.mat-toolbar-single-row {
-  padding-right: 0px;
-}
-
-a {
-  margin-left: 14%;
-}
-
-mat-form-field {
-  margin-right: 15%;
+mat-toolbar {
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 @media only screen and (max-width: 768px) {
-  mat-form-field,
-  a {
-    margin-left: 5%;
-    margin-right: 5%;
+  mat-toolbar {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
 

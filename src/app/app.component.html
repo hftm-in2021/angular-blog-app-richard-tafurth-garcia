@@ -1,2 +1,7 @@
-<app-header (searchTriggeredEmitter)="searchBlogs($event)"></app-header>
+<app-header
+  [isAuthenticated]="authenticationStateService.isAuthenticated$ | async"
+  [userData]="authenticationStateService.userData$ | async"
+  (searchTriggeredEmitter)="searchBlogs($event)"
+  (authenticateEmitter)="manageAuthentication($event)"
+></app-header>
 <router-outlet></router-outlet>
