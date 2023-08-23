@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationStateService } from '@app/core/auth/authentication.state.service';
 import { BlogStateService } from '@app/core/services/blog.state.service';
 import { SpinnerStateService } from '@app/core/services/spinner.state.service';
 
@@ -14,6 +15,7 @@ export class NewBlogPageComponent implements OnInit {
   constructor(
     public blogStateService: BlogStateService,
     public spinnerStateService: SpinnerStateService,
+    private authenticationStateService: AuthenticationStateService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -26,7 +28,11 @@ export class NewBlogPageComponent implements OnInit {
 
   onSubmit(form: FormGroup): void {
     if (form.valid) {
-      this.blogStateService.addEntry(form.value.title, form.value.content);
+      this.blogStateService.addEntry(
+        form.value.title,
+        form.value.content,
+        this.authenticationStateService.getLoginResponse()
+      );
     }
   }
 

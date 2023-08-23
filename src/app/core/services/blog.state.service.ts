@@ -5,7 +5,8 @@ import { StateService } from './state.service';
 import { BlogService } from './blog.service';
 import { BlogDetails } from './blog-details';
 import { SpinnerStateService } from './spinner.state.service';
-import { NewBlog, NewBlogSchema } from './new-blog';
+import { NewBlog } from './new-blog';
+import { LoginResponse } from 'angular-auth-oidc-client';
 
 interface BlogState {
   blogs: ArrayBlogOverview;
@@ -77,21 +78,29 @@ export class BlogStateService extends StateService<BlogState> {
     });
   }
 
-  public addEntry(title: string, content: string): void {
+  public addEntry(
+    title: string,
+    content: string,
+    loginResponse: LoginResponse
+  ): void {
     this.spinnerStateService.show();
 
-    const newBlogEntry: NewBlog = {
-      title: title,
-      content: content
-    };
+    if (loginResponse.isAuthenticated) {
+      const newBlogEntry: NewBlog = {
+        title: title,
+        content: content,
+      };
 
-    this.blogService.addEntry(newBlogEntry).subscribe({
-      next: () => {
-        this.setEmpty(false);
-      },
-      error: (error: Error) => this.setError(error),
-      complete: () => this.spinnerStateService.hide(),
-    });
+      this.blogService
+        .addEntry(newBlogEntry, loginResponse.accessToken)
+        .subscribe({
+          next: () => {
+            this.setEmpty(false);
+          },
+          error: (error: Error) => this.setError(error),
+          complete: () => this.spinnerStateService.hide(),
+        });
+    }
   }
 
   private setError(error: Error | null): void {

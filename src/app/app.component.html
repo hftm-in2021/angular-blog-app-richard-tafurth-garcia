@@ -1,6 +1,8 @@
 <app-header
-  [isAuthenticated]="authenticationStateService.isAuthenticated$ | async"
-  [userData]="authenticationStateService.userData$ | async"
+  [isAuthenticated]="
+    (authenticationStateService.loginResponse$ | async)!.isAuthenticated
+  "
+  [userData]="(authenticationStateService.loginResponse$ | async)?.userData"
   (searchTriggeredEmitter)="searchBlogs($event)"
   (authenticateEmitter)="manageAuthentication($event)"
 ></app-header>
