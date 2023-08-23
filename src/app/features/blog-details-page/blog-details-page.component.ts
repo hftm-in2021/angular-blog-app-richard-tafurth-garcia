@@ -17,7 +17,6 @@ export class BlogDetailsPageComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const blogId = Number(this.route.snapshot.paramMap.get('id')) || null;
-
     if (blogId != null) this.blogStateService.getEntry(blogId);
   }
 }

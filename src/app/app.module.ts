@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthModule } from 'angular-auth-oidc-client';
 import { EnvironmentService } from './environment.service';
 import { MatCardModule } from '@angular/material/card';
-import { AddBlogPageModule } from './features/add-blog-page/add-blog-page.module';
+import { NewBlogPageModule } from './features/add-blog-page/new-blog-page.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -50,7 +50,7 @@ import { AddBlogPageModule } from './features/add-blog-page/add-blog-page.module
         secureRoutes: [new EnvironmentService().apiUrl],
       },
     }),
-    AddBlogPageModule,
+    NewBlogPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,6 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'blogs/new',
+    loadChildren: () =>
+      import('@features/add-blog-page/new-blog-page.module').then(
+        (m) => m.NewBlogPageModule
+      ), // lazy loaded
+  },
+  {
     path: 'blogs/:id',
     loadChildren: () =>
       import('@features/blog-details-page/blog-details-page.module').then(
