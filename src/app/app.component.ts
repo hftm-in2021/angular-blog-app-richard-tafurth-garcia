@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EnvironmentService } from '@app/environment.service';
-
-import { FormBuilder } from '@angular/forms';
+import { BlogStateService } from '@services/blog.state.service';
+import { AuthenticationStateService } from '@core/auth/authentication.state.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,23 @@ import { FormBuilder } from '@angular/forms';
 export class AppComponent {
   apiUrl = '';
   title = 'blog';
-  searchInput = '';
+  authenticationStateService: AuthenticationStateService;
 
-  constructor(environment: EnvironmentService) {
+  constructor(
+    environment: EnvironmentService,
+    private blogStateService: BlogStateService,
+    authenticationStateService: AuthenticationStateService
+  ) {
     this.apiUrl = environment.apiUrl;
+    this.authenticationStateService = authenticationStateService;
+  }
+
+  searchBlogs(keywords: string): void {
+    this.blogStateService.searchEntries(keywords);
+  }
+
+  manageAuthentication(mustLogin: boolean): void {
+    if (mustLogin) this.authenticationStateService.login();
+    else this.authenticationStateService.logout();
   }
 }

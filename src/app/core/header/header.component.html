@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <a
+    [routerLink]="['/', 'blogs']"
+    mat-icon-button
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>home</mat-icon>
+  </a>
+  <mat-label>bleddit</mat-label>
+
+  <span class="spacer"></span>
+
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <input
+      matInput
+      placeholder="Search blog entries..."
+      (keyup)="searchBlogs($event)"
+      #searchInput
+    />
+  </mat-form-field>
+
+  <ng-container *ngIf="isAuthenticated; else showLogin">
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ userData?.preferred_username }}
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+      <button (click)="logoff()" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #showLogin>
+    <button
+      (click)="login()"
+      mat-icon-button
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+    <mat-label>login</mat-label>
+  </ng-template>
+</mat-toolbar>

@@ -1,3 +1,22 @@
-<ng-container *ngFor="let blog of blogs | async">
-  <app-blog-overview [blog]="blog"></app-blog-overview>
+<ng-container *ngIf="blogStateService.isLoading$ | async; else blogContent">
+  <mat-spinner></mat-spinner>
 </ng-container>
+<ng-template #blogContent>
+  <ng-container *ngFor="let blog of blogStateService.blogs$ | async">
+    <app-blog-item [blog]="blog"></app-blog-item>
+  </ng-container>
+  <mat-card *ngIf="blogStateService.isEmpty$ | async">
+    <mat-card-header>
+      <mat-card-title>Error 404</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>No result found with this keyword...</mat-card-content>
+  </mat-card>
+</ng-template>
+<mat-card *ngIf="(blogStateService.error$ | async) !== null">
+  <mat-card-header>
+    <mat-card-title>Error 500</mat-card-title>
+  </mat-card-header>
+  <mat-card-content
+    >An error occured: {{ blogStateService.error$ }}</mat-card-content
+  >
+</mat-card>

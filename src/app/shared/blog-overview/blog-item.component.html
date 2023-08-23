@@ -1,13 +1,16 @@
-<mat-card class="blog-entry-card">
+<mat-card
+  class="blog-entry-card"
+  (click)="navigate()"
+  [class.clickable]="!isDetailed()"
+>
   <mat-card-header>
     <img mat-card-avatar #UserHeaderImage alt="" />
     <mat-card-title>{{ blog.author }}</mat-card-title>
     <mat-card-subtitle>{{ blog.title }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="" alt="" />
   <mat-card-content>
     <p>
-      {{ blog.contentPreview }}
+      {{ getContent() }}
     </p>
   </mat-card-content>
   <mat-card-actions>
@@ -27,8 +30,8 @@
       aria-label="Example icon button with a home icon"
     >
       <mat-icon
-        [matBadge]="blog.comments"
-        [matBadgeHidden]="blog.comments === 0"
+        [matBadge]="countComments()"
+        [matBadgeHidden]="countComments() === 0"
         >comment</mat-icon
       >
     </button>

@@ -1,0 +1,14 @@
+<ng-container *ngIf="blogStateService.isLoading$ | async; else blogContent">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-template #blogContent>
+  <ng-container *ngIf="blogStateService.selectedBlog$ | async; let blog">
+    <app-blog-item [blog]="blog"></app-blog-item>
+    <ng-container *ngFor="let comment of blog.comments">
+      <app-comment-item [comment]="comment"></app-comment-item>
+    </ng-container>
+    <mat-card *ngIf="blog.comments.length === 0">
+      <mat-card-content>Be the first one to comment!</mat-card-content>
+    </mat-card>
+  </ng-container>
+</ng-template>

@@ -1,12 +1,7 @@
-<mat-toolbar>
-  <span>My Application</span>
-  <span class="spacer"></span>
-  <mat-form-field appearance="outline" subscriptSizing="dynamic">
-    <input
-      matInput
-      placeholder="Search blog entries..."
-      [(ngModel)]="searchInput"
-    />
-  </mat-form-field>
-</mat-toolbar>
-<app-blog-overview-page [keyword]="searchInput"> </app-blog-overview-page>
+<app-header
+  [isAuthenticated]="authenticationStateService.isAuthenticated$ | async"
+  [userData]="authenticationStateService.userData$ | async"
+  (searchTriggeredEmitter)="searchBlogs($event)"
+  (authenticateEmitter)="manageAuthentication($event)"
+></app-header>
+<router-outlet></router-outlet>
