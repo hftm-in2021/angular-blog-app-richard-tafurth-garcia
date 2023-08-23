@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { BlogDetails, BlogDetailSchema } from './blog-details';
 import { ArrayBlogOverview, ArrayBlogOverviewSchema } from './blog-overview';
+import { NewBlog } from './new-blog';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,9 @@ export class BlogService {
         },
       })
       .pipe(map((response) => ArrayBlogOverviewSchema.parse(response)));
+  }
+
+  addEntry(newBlog: NewBlog): Observable<NewBlog> {
+    return this.http.post<NewBlog>(`${environment.apiUrl}entries`, newBlog);
   }
 }

@@ -5,6 +5,7 @@ import { StateService } from './state.service';
 import { BlogService } from './blog.service';
 import { BlogDetails } from './blog-details';
 import { SpinnerStateService } from './spinner.state.service';
+import { NewBlog, NewBlogSchema } from './new-blog';
 
 interface BlogState {
   blogs: ArrayBlogOverview;
@@ -69,6 +70,23 @@ export class BlogStateService extends StateService<BlogState> {
     this.blogService.searchEntries(keywords).subscribe({
       next: (blogs: ArrayBlogOverview) => {
         this.setState({ blogs });
+        this.setEmpty(false);
+      },
+      error: (error: Error) => this.setError(error),
+      complete: () => this.spinnerStateService.hide(),
+    });
+  }
+
+  public addEntry(title: string, content: string): void {
+    this.spinnerStateService.show();
+
+    const newBlogEntry: NewBlog = {
+      title: title,
+      content: content
+    };
+
+    this.blogService.addEntry(newBlogEntry).subscribe({
+      next: () => {
         this.setEmpty(false);
       },
       error: (error: Error) => this.setError(error),

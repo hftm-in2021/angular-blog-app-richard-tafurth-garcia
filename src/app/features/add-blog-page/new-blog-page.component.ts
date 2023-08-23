@@ -24,7 +24,13 @@ export class NewBlogPageComponent implements OnInit {
     });
   }
 
-  onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid);
+  onSubmit(form: FormGroup): void {
+    if (form.valid) {
+      this.blogStateService.addEntry(form.value.title, form.value.content);
+    }
+  }
+
+  reset(): void {
+    this.form.reset();
   }
 }
