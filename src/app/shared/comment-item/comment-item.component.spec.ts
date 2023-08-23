@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CommentItemComponent } from '@app/core/comment-item/comment-item';
+import { CommentItemComponent } from './comment-item';
 
 describe('CommentItemComponent', () => {
   let component: CommentItemComponent;
