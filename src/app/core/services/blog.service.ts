@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { BlogDetails, BlogDetailSchema } from './blog-details';
 import { ArrayBlogOverview, ArrayBlogOverviewSchema } from './blog-overview';
+import { NewBlog } from './new-blog';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,16 @@ export class BlogService {
         },
       })
       .pipe(map((response) => ArrayBlogOverviewSchema.parse(response)));
+  }
+
+  addEntry(newBlog: NewBlog, accessToken: string): Observable<NewBlog> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`, // Adjust the prefix if not using Bearer tokens
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<NewBlog>(`${environment.apiUrl}entries`, newBlog, {
+      headers,
+    });
   }
 }

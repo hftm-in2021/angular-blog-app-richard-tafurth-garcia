@@ -3,14 +3,13 @@ import { StateService } from '@services/state.service';
 import { Observable } from 'rxjs';
 import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 
-interface AuthenticationState {
-  isAuthenticated: boolean;
-  userData: UserData | null;
-}
-
-const initialState: AuthenticationState = {
+const initialState: LoginResponse = {
   isAuthenticated: false,
-  userData: null,
+  userData: '',
+  accessToken: '',
+  idToken: '',
+  configId: '',
+  errorMessage: '',
 };
 
 export type UserData = {
@@ -25,12 +24,9 @@ export type UserData = {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationStateService extends StateService<AuthenticationState> {
-  isAuthenticated$: Observable<boolean> = this.select(
-    (state) => state.isAuthenticated
-  );
-  userData$: Observable<UserData | null> = this.select(
-    (state) => state.userData
+export class AuthenticationStateService extends StateService<LoginResponse> {
+  loginResponse$: Observable<LoginResponse> = this.select(
+    (loginResponse) => loginResponse
   );
 
   constructor(private securityService: OidcSecurityService) {
@@ -39,19 +35,16 @@ export class AuthenticationStateService extends StateService<AuthenticationState
     this.securityService
       .checkAuth()
       .subscribe((loginResponse: LoginResponse) => {
-        const { isAuthenticated, userData } = loginResponse;
-        this.setAuthenticated(isAuthenticated);
-        this.setUserDate(userData);
-        console.log(userData);
+        this.setLoginResponse(loginResponse);
       });
   }
 
-  private setAuthenticated(authenticated: boolean): void {
-    this.setState({ isAuthenticated: authenticated });
+  private setLoginResponse(loginResponse: LoginResponse): void {
+    this.setState(loginResponse);
   }
 
-  private setUserDate(userData: UserData): void {
-    this.setState({ userData: userData });
+  getLoginResponse(): LoginResponse {
+    return this.state;
   }
 
   login(): void {

@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  devcontainer:
+    build: .
+    container_name: typescript-angular-web-dev-env
+    hostname: typescript-tester.local
+    working_dir: /projects
+    volumes:
+       - ..:/projects
+    command: sleep infinity

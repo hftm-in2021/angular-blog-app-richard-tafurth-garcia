@@ -1,6 +1,6 @@
-<ng-container *ngIf="blogStateService.isLoading$ | async; else blogContent">
-  <mat-spinner></mat-spinner>
-</ng-container>
+<mat-spinner
+  *ngIf="spinnerStateService.isLoading$ | async; else blogContent"
+></mat-spinner>
 <ng-template #blogContent>
   <ng-container *ngIf="blogStateService.selectedBlog$ | async; let blog">
     <app-blog-item [blog]="blog"></app-blog-item>

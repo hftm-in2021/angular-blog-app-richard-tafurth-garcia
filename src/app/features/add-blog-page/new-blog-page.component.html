@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      formControlName="title"
+      placeholder="Title of your new entry"
+    />
+    <mat-error
+      *ngIf="
+        form.get('title')?.invalid &&
+        (form.get('title')?.dirty || form.get('title')?.touched)
+      "
+    >
+      <span>Please provide it a proper title.</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill">
+    <mat-label>Content</mat-label>
+    <textarea
+      matInput
+      formControlName="content"
+      placeholder="What's on your mind?"
+    >
+    </textarea>
+    <mat-error
+      *ngIf="
+        form.get('content')?.invalid &&
+        (form.get('content')?.dirty || form.get('content')?.touched)
+      "
+    >
+      Please provide just a little more content.
+    </mat-error>
+  </mat-form-field>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid">
+      Send
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="reset()">
+      Reset
+    </button>
+  </div>
+</form>
+<mat-card *ngIf="(blogStateService.error$ | async) !== null">
+  <mat-card-header>
+    <mat-card-title>Error 500</mat-card-title>
+  </mat-card-header>
+  <mat-card-content
+    >An error occured: {{ blogStateService.error$ | async }}</mat-card-content
+  >
+</mat-card>
