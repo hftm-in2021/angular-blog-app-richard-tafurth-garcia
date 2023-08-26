@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from '@app/core/header/header.component';
+import { AppRoutingModule } from '@app/app-routing.module';
+import { AppComponent } from '@app/app.component';
 import { BlogOverviewPageModule } from '@features/blog-overview-page/blog-overview-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -17,13 +16,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthModule } from 'angular-auth-oidc-client';
 import { EnvironmentService } from './environment.service';
 import { MatCardModule } from '@angular/material/card';
-import { NewBlogPageModule } from './features/add-blog-page/new-blog-page.module';
-import { SidebarComponent } from './core/sidebar/sidebar.component';
+import { NewBlogPageModule } from '@features/add-blog-page/new-blog-page.module';
+import { SidebarComponent } from '@core/sidebar/sidebar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SidebarComponent],
+  declarations: [AppComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
