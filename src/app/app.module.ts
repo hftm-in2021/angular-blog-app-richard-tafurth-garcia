@@ -18,9 +18,12 @@ import { AuthModule } from 'angular-auth-oidc-client';
 import { EnvironmentService } from './environment.service';
 import { MatCardModule } from '@angular/material/card';
 import { NewBlogPageModule } from './features/add-blog-page/new-blog-page.module';
+import { SidebarComponent } from './core/sidebar/sidebar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,6 +54,8 @@ import { NewBlogPageModule } from './features/add-blog-page/new-blog-page.module
       },
     }),
     NewBlogPageModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,9 +1,9 @@
-<app-header
+<app-sidebar
   [isAuthenticated]="
     (authenticationStateService.loginResponse$ | async)!.isAuthenticated
   "
   [userData]="(authenticationStateService.loginResponse$ | async)?.userData"
   (searchTriggeredEmitter)="searchBlogs($event)"
   (authenticateEmitter)="manageAuthentication($event)"
-></app-header>
+></app-sidebar>
 <router-outlet></router-outlet>

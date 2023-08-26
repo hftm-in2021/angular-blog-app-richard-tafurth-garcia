@@ -1,0 +1,128 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="false"
+  >
+    <mat-nav-list>
+      <mat-list-item>
+        <a
+          [routerLink]="['/', 'blogs']"
+          mat-icon-button
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon>home</mat-icon>
+        </a>
+        <mat-label>Home</mat-label>
+      </mat-list-item>
+      <ng-container *ngIf="isAuthenticated; else showLogin">
+        <mat-list-item>
+          <button mat-button [matMenuTriggerFor]="menu">
+            {{ userData?.preferred_username }}
+          </button>
+          <mat-menu #menu="matMenu" yPosition="above">
+            <button (click)="logoff()" mat-menu-item>
+              <mat-icon>logout</mat-icon>
+              Logout
+            </button>
+          </mat-menu>
+        </mat-list-item>
+        <mat-list-item>
+          <button
+            mat-icon-button
+            class="example-icon"
+            [routerLink]="['/', 'blogs', 'new']"
+          >
+            <mat-icon>library_add</mat-icon>
+          </button>
+        </mat-list-item>
+      </ng-container>
+      <ng-template #showLogin>
+        <mat-list-item>
+          <button
+            (click)="login()"
+            mat-icon-button
+            class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon"
+          >
+            <mat-icon>login</mat-icon>
+          </button>
+          <mat-label>login</mat-label>
+        </mat-list-item>
+      </ng-template>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar *ngIf="isHandset$ | async; else regularMenu">
+      <span class="spacer"></span>
+
+      <mat-label>bleddit</mat-label>
+      <button
+        (click)="sidenav.toggle()"
+        mat-icon-button
+        class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon"
+      >
+        <mat-icon>dehaze</mat-icon>
+      </button>
+    </mat-toolbar>
+    <ng-template #regularMenu>
+      <mat-toolbar>
+        <a
+          [routerLink]="['/', 'blogs']"
+          mat-icon-button
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon>home</mat-icon>
+        </a>
+        <mat-label>bleddit</mat-label>
+
+        <span class="spacer"></span>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+          <input
+            matInput
+            placeholder="Search blog entries..."
+            (keyup)="searchBlogs($event)"
+            #searchInput
+          />
+        </mat-form-field>
+
+        <ng-container *ngIf="isAuthenticated; else showLogin">
+          <button mat-button [matMenuTriggerFor]="menu">
+            {{ userData?.preferred_username }}
+          </button>
+          <mat-menu #menu="matMenu" yPosition="above">
+            <button (click)="logoff()" mat-menu-item>
+              <mat-icon>logout</mat-icon>
+              Logout
+            </button>
+          </mat-menu>
+
+          <button
+            mat-icon-button
+            class="example-icon"
+            [routerLink]="['/', 'blogs', 'new']"
+          >
+            <mat-icon>library_add</mat-icon>
+          </button>
+        </ng-container>
+
+        <ng-template #showLogin>
+          <button
+            (click)="login()"
+            mat-icon-button
+            class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon"
+          >
+            <mat-icon>login</mat-icon>
+          </button>
+          <mat-label>login</mat-label>
+        </ng-template>
+      </mat-toolbar>
+    </ng-template>
+  </mat-sidenav-content>
+</mat-sidenav-container>
